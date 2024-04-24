@@ -8,6 +8,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { PageService } from 'src/app/services/page.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -69,5 +70,25 @@ export class CategoryComponent implements OnInit {
     const fValue = (event.target as HTMLInputElement).value;
     this.listData.filter = fValue.trim().trim().toLowerCase();
   }
+
+  // uploadCategories() {
+  //   const csvData = this.convertToCSV(this.listData); // Giả sử bạn có phương thức này để chuyển đổi array sang CSV
+  //   const file = new Blob([csvData], { type: 'text/csv' });
+  //   const formData = new FormData();
+  //   formData.append('file', file, 'categories.csv');
+  
+  //   this.http.post('/upload', formData).subscribe(
+  //     (response) => console.log('Upload thành công!', response),
+  //     (error) => console.error('Lỗi khi upload:', error)
+  //   );
+  // }
+
+  // convertToCSV(dataArray: any[]) {
+  //   const array = [Object.keys(dataArray[0])].concat(dataArray)
+  
+  //   return array.map(it => {
+  //     return Object.values(it).toString()
+  //   }).join('\n')
+  // }
 
 }

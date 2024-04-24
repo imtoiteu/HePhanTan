@@ -16,7 +16,8 @@ export class EditCustomerComponent implements OnInit {
   customer!: Customer;
 
   selectFile!: File;
-  url: string = 'https://res.cloudinary.com/veggie-shop/image/upload/v1633795994/users/mnoryxp056ohm0b4gcrj.png';
+
+  url: string = 'https://res.cloudinary.com/dwrcr5anf/image/upload/v1683206351/profileImage_ug8g1i.png';
   image: string = this.url;
 
   postForm: FormGroup;
@@ -44,12 +45,30 @@ export class EditCustomerComponent implements OnInit {
     this.getCustomer();
   }
 
+  // update() {
+  //   if(this.postForm.valid) {
+  //     this.customer = this.postForm.value;
+  //     this.customer.image = this.image;
+
+  //     this.customerService.update(this.id, this.customer).subscribe(data=>{
+  //       this.toastr.success('Cập nhật thành công!', 'Hệ thống');
+  //       this.editFinish.emit('done');
+  //     })
+  //   } else {
+  //     this.toastr.error('Hãy kiểm tra lại dữ liệu! ', 'Hệ thống');
+  //   }
+  //   this.modalService.dismissAll();
+  // }
+
   update() {
     if(this.postForm.valid) {
-      this.customer = this.postForm.value;
-      this.customer.image = this.image;
+      const formData = new FormData();
+      formData.append('file', this.selectFile);
+      Object.keys(this.postForm.value).forEach(key => {
+        formData.append(key, this.postForm.value[key]);
+      });
 
-      this.customerService.update(this.id, this.customer).subscribe(data=>{
+      this.customerService.updateCustomerWithImage(this.id, formData).subscribe(data=>{
         this.toastr.success('Cập nhật thành công!', 'Hệ thống');
         this.editFinish.emit('done');
       })
@@ -57,6 +76,7 @@ export class EditCustomerComponent implements OnInit {
       this.toastr.error('Hãy kiểm tra lại dữ liệu! ', 'Hệ thống');
     }
     this.modalService.dismissAll();
+
   }
 
   getCustomer() {

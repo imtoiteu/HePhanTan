@@ -128,10 +128,12 @@ export class CheckoutComponent implements OnInit {
         let email = this.sessionService.getUser();
         this.cartService.getCart(email).subscribe(data => {
           this.cart = data as Cart;
-          this.cart.address = this.postForm.value.number + ', ' + this.ward.name + ', ' + this.district.name + ', ' + this.province.name;
+          // this.cart.address = this.postForm.value.number + ', ' + this.ward.name + ', ' + this.district.name + ', ' + this.province.name;
+          this.cart.address = this.postForm.value.number + ", Cổ Nhuế 1, Bắc Từ Liêm, Hà Nội";
           this.cart.phone = this.postForm.value.phone;
+          this.cart = data as Cart;
           this.cartService.updateCart(email, this.cart).subscribe(data => {
-            this.cart = data as Cart;
+            this.cart = data as Cart; 
             this.orderService.post(email, this.cart).subscribe(data => {
               let order:Order = data as Order;
               this.sendMessage(order.ordersId);

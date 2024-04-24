@@ -19,7 +19,7 @@ export class AddCustomerComponent implements OnInit {
   saveFinish: EventEmitter<any> = new EventEmitter<any>();
 
   selectFile!: File;
-  url: string = 'https://res.cloudinary.com/veggie-shop/image/upload/v1633795994/users/mnoryxp056ohm0b4gcrj.png';
+  url: string = 'https://res.cloudinary.com/dwrcr5anf/image/upload/v1683206351/profileImage_ug8g1i.png';
   image: string = this.url;
 
   postForm: FormGroup;
@@ -41,25 +41,61 @@ export class AddCustomerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // save() {
+  //   if (this.postForm.valid) {
+  //     this.customer = this.postForm.value;
+  //     this.customer.image = this.image;
+  //     this.customerService.post(this.customer).subscribe(data => {
+  //       this.toastr.success('Thêm thành công', 'Hệ thống');
+  //       this.modalService.dismissAll();
+  //       this.saveFinish.emit('done');
+  //     }, error => {
+  //       if (error.status === 404) {
+  //         this.toastr.error('Email này đã tồn tại! ', 'Hệ thống');
+  //       } else {
+  //         this.toastr.error('Thêm thất bại!', 'Hệ thống');
+  //       }
+  //     })
+  //   } else {
+  //     this.toastr.error('Thêm thất bại!', 'Hệ thống');
+  //   }
+  //   this.postForm = new FormGroup({
+  //     'userId': new FormControl(0),
+  //     'email': new FormControl(null, [Validators.minLength(4), Validators.email, Validators.required]),
+  //     'name': new FormControl(null, [Validators.minLength(4), Validators.required]),
+  //     'password': new FormControl(null, [Validators.minLength(6), Validators.required]),
+  //     'address': new FormControl(null, [Validators.minLength(4), Validators.required]),
+  //     'phone': new FormControl(null, [Validators.required, Validators.pattern('(0)[0-9]{9}')]),
+  //     'gender': new FormControl(true),
+  //     'registerDate': new FormControl(new Date()),
+  //     'status': new FormControl(1),
+  //   })
+  //   this.image = this.url;
+  // }
+
   save() {
     if (this.postForm.valid) {
-      this.customer = this.postForm.value;
-      this.customer.image = this.image;
-      this.customerService.post(this.customer).subscribe(data => {
+
+      const formData = new FormData();
+      formData.append('file', this.selectFile);
+      Object.keys(this.postForm.value).forEach(key => {
+        formData.append(key, this.postForm.value[key]);
+      });
+  
+      this.customerService.createOrUpdateCustomerWithImage(formData).subscribe(data => {
         this.toastr.success('Thêm thành công', 'Hệ thống');
         this.modalService.dismissAll();
         this.saveFinish.emit('done');
       }, error => {
-        if (error.status === 404) {
-          this.toastr.error('Email này đã tồn tại! ', 'Hệ thống');
-        } else {
-          this.toastr.error('Thêm thất bại!', 'Hệ thống');
-        }
-      })
+        // this.toastr.error('Có lỗi xảy ra!', 'Hệ thống');
+        // console.error('Có lỗi xảy ra:', error); // In ra console để debug
+        this.toastr.error('Có lỗi xảy ra nè má: ' + error.message, 'Hệ thống'); // Hiển thị thông báo lỗi cụ thể
+      });
     } else {
-      this.toastr.error('Thêm thất bại!', 'Hệ thống');
+      this.toastr.error('Form không hợp lệ!', 'Hệ thống');
     }
-    this.postForm = new FormGroup({
+
+      this.postForm = new FormGroup({
       'userId': new FormControl(0),
       'email': new FormControl(null, [Validators.minLength(4), Validators.email, Validators.required]),
       'name': new FormControl(null, [Validators.minLength(4), Validators.required]),
@@ -72,6 +108,7 @@ export class AddCustomerComponent implements OnInit {
     })
     this.image = this.url;
   }
+
 
   open(content: TemplateRef<any>) {
     this.modalService.open(content, { centered: true, size: 'lg' });

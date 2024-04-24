@@ -48,7 +48,7 @@ export class SignFormComponent implements OnInit {
       'name': new FormControl(null, [Validators.required, Validators.minLength(6)]),
       'status': new FormControl(true),
       'gender': new FormControl(true),
-      'image': new FormControl('https://res.cloudinary.com/veggie-shop/image/upload/v1633795994/users/mnoryxp056ohm0b4gcrj.png'),
+      'image': new FormControl('https://res.cloudinary.com/dwrcr5anf/image/upload/v1683206351/profileImage_ug8g1i.png'),
       'address': new FormControl(null, [Validators.required]),
       'phone': new FormControl(null, [Validators.required, Validators.minLength(10), Validators.pattern('(0)[0-9]{9}')]),
       'registerDate': new FormControl(new Date()),

@@ -6,13 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class ProvinceService {
 
-  provinces = 'https://provinces.open-api.vn/api/p'
-  districts = 'https://provinces.open-api.vn/api/p';
-  wards = 'https://provinces.open-api.vn/api/d';
+  provinces = 'https://vnprovinces.pythonanywhere.com/api/provinces/'
+  districts = 'https://vnprovinces.pythonanywhere.com/api/districts/';
+  wards = 'https://vnprovinces.pythonanywhere.com/api/wards/';
 
-  province = 'https://provinces.open-api.vn/api/p/';
-  district = 'https://provinces.open-api.vn/api/d/';  
-  ward = 'https://provinces.open-api.vn/api/w/';
+  province = 'https://vnprovinces.pythonanywhere.com/api/provinces/';
+  district = 'https://vnprovinces.pythonanywhere.com/api/districts/';  
+  ward = 'https://vnprovinces.pythonanywhere.com/api/wards/';
 
   constructor(private http: HttpClient) { }
 

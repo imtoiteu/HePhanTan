@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer } from '../common/Customer';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,13 @@ export class CustomerService {
 
   updateAdmin(id: number, customer: Customer) {
     return this.httpClient.put(this.url + '/admin/' + id, customer);
+  }
+
+  createOrUpdateCustomerWithImage(formData: FormData): Observable<any> {
+    return this.httpClient.post(this.url + '/createOrUpdate', formData);
+  }
+
+  updateCustomerWithImage(id: number, formData: FormData): Observable<any> {
+    return this.httpClient.put(this.url + '/update/' + id, formData);
   }
 }

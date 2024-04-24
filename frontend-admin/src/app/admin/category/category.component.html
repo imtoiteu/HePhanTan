@@ -13,6 +13,9 @@
                 <input matInput type="text" (keyup)="search($event);" />
             </mat-form-field>            
             <button mat-raised-button color="primary" class="ml-3" style="float: right;" (click)="exporter.exportTable('csv', {fileName:'Danh sách loại sản phẩm'})">Xuất Excel</button>
+                    
+            <!-- <button mat-raised-button color="accent" class="ml-3" style="float: right;" (click)="uploadCategories()">Tải lên</button> -->
+
             <app-add-category style="float: right;" (saveFinish)="finish()"></app-add-category>
         </div>
         <div class="col-12">
